@@ -1,4 +1,4 @@
-package test;
+package test.main.data;
 
 import main.data.Matrix;
 import main.data.exceptions.BadIndexException;
