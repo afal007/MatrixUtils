@@ -1,6 +1,5 @@
 package main.data;
 
-import com.sun.istack.internal.NotNull;
 import main.data.exceptions.BadIndexException;
 import main.data.exceptions.MatrixIllegalArgumentException;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents basic matrix structure
+ * Represents basic matrix object
  * @author Alexander Fal (falalexandr007@gmail.com)
  * @version 1.0
  */
@@ -163,15 +162,15 @@ public class Matrix <T extends Number> {
      * Add all values to matrix starting from [0][0].
      * Left to right, top to bottom.
      * First {@code cols * rows} values are added, all extra values are ignored.
-     * @param vals values to be added
+     * @param values values to be added
      * @return {@link Matrix} filled with specified values
      */
     @SafeVarargs
-    public final Matrix addAll(T... vals) {
+    public final Matrix addAll(T... values) {
         for(int i = 0; i < rows; i++)
             for(int j = 0; j < cols; j++)
                 try {
-                    set(i, j, vals[cols * i + j]);
+                    set(i, j, values[cols * i + j]);
                 } catch (IndexOutOfBoundsException e) {
                     return this;
                 }

@@ -6,6 +6,7 @@ public class MatrixIllegalArgumentException extends IllegalArgumentException {
     public static final String WRONG_COLUMNS_NUMBER_MESSAGE = "Number of columns shouldn't be less then 2";
     public static final String ARGUMENT_CANT_BE_NULL_MESSAGE = "Argument can't be null";
     public static final String DIFFERENT_ROWS_LENGTH_MESSAGE = "Rows can't have different length";
+    public static final String WRONG_MULT_DIMENSIONS_MESSAGE = "Left-hand columns must be equal to right hand columns";
 
 
     public MatrixIllegalArgumentException() {
