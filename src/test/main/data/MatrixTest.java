@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class MatrixTest {
     private static Matrix<Integer> matrix;
-    private static final int dimensions = 5;
+    private static final int dimensions = 2;
     @BeforeAll
     static void beforeAll() {
         matrix = new Matrix<>(dimensions);
@@ -232,6 +232,51 @@ class MatrixTest {
         void testSetOutOfBoundsColumnIndex() {
             BadIndexException exception = assertThrows(BadIndexException.class, () -> matrix.set(0, 21, 21));
             assertEquals(exception.getMessage(), BadIndexException.INDEX_OUT_OF_BOUNDS_MESSAGE);
+        }
+
+        /**
+         * Add {@code rows * columns} values
+         * 1. Use {@link Matrix#addAll(Number[])} with {@code rows * columns} values
+         */
+        @Test
+        void testAddAll() {
+            Matrix tmp = matrix.addAll(1, 2, 3, 4);
+            assertEquals(tmp, matrix);
+
+            for(int i = 0; i < dimensions; i++) {
+                for(int j = 0; j < dimensions; j++)
+                    assertEquals((int) matrix.get(i,j), i * dimensions + j + 1);
+            }
+        }
+
+        /**
+         * Add values, for which {@code rows * columns > values.length}
+         * 1. Use {@link Matrix#addAll(Number[])} with {@code rows * columns - 1} values
+         */
+        @Test
+        void testAddAllLessThenDimensions() {
+            Matrix tmp = matrix.addAll(1, 2, 3);
+            assertEquals(tmp, matrix);
+
+            for(int i = 0; i < 1; i++) {
+                for(int j = 0; j < dimensions; j++)
+                    assertEquals((int) matrix.get(i,j), i * dimensions + j + 1);
+            }
+        }
+
+        /**
+         * Add values, for which {@code rows * columns < values.length}
+         * 1. Use {@link Matrix#addAll(Number[])} with {@code rows * columns +1} values
+         */
+        @Test
+        void testAddAllMoreThenDimensions() {
+            Matrix tmp = matrix.addAll(1, 2, 3, 4, 5);
+            assertEquals(tmp, matrix);
+
+            for(int i = 0; i < dimensions; i++) {
+                for(int j = 0; j < dimensions; j++)
+                    assertEquals((int) matrix.get(i,j), i * dimensions + j + 1);
+            }
         }
     }
 

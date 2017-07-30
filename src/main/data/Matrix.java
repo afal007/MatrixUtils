@@ -158,4 +158,24 @@ public class Matrix <T extends Number> {
     public int getCols() {
         return cols;
     }
+
+    /**
+     * Add all values to matrix starting from [0][0].
+     * Left to right, top to bottom.
+     * First {@code cols * rows} values are added, all extra values are ignored.
+     * @param vals values to be added
+     * @return {@link Matrix} filled with specified values
+     */
+    @SafeVarargs
+    public final Matrix addAll(T... vals) {
+        for(int i = 0; i < rows; i++)
+            for(int j = 0; j < cols; j++)
+                try {
+                    set(i, j, vals[cols * i + j]);
+                } catch (IndexOutOfBoundsException e) {
+                    return this;
+                }
+
+        return this;
+    }
 }
