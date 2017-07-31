@@ -1,6 +1,8 @@
 package main.utils;
 
 import main.data.Matrix;
+import main.data.arithmetic.Numeric;
+import main.data.arithmetic.RichInt;
 import main.data.exceptions.MatrixIllegalArgumentException;
 
 /**
@@ -24,7 +26,7 @@ public class MatrixUtils {
         if(left.getCols() != right.getRows())
             throw new MatrixIllegalArgumentException(MatrixIllegalArgumentException.WRONG_MULT_DIMENSIONS_MESSAGE);
 
-//        TODO: Implement Numeric interface and primitive numbers wrapers to be able to generify arithmetic ops
+//        TODO: Implement Numeric interface and primitive types wrapers to be able to generify arithmetic ops
         int rows = left.getRows(), cols = right.getCols();
         Matrix <T> result = new Matrix<>(rows, cols);
         for(int i = 0; i < rows; i++)
@@ -35,7 +37,12 @@ public class MatrixUtils {
     }
 
     private static <T extends Number> T eval(Matrix<T> left, Matrix<T> right, int i, int j) {
-        return (T) Integer.valueOf(0);
+        Numeric<T> sum;
+        int k;
+        for(sum = left.getNumeric(i,0).mult(right.get(0,j)), k = 1; k < left.getCols(); k++) {
+            sum = sum.add(left.getNumeric(i,k).mult(right.get(k,j)).getVal());
+        }
+        return sum.getVal();
     }
 
     public <T extends Number> Matrix add (Matrix<T> left, Matrix<T> right) {

@@ -1,5 +1,6 @@
 package main.data;
 
+import main.data.arithmetic.*;
 import main.data.exceptions.BadIndexException;
 import main.data.exceptions.MatrixIllegalArgumentException;
 
@@ -7,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents basic matrix object
+ * Represents basic matrix object.
  * @author Alexander Fal (falalexandr007@gmail.com)
  * @version 1.0
  */
 public class Matrix <T extends Number> {
-    private ArrayList<ArrayList<T>> matrix;
+    private ArrayList< ArrayList< Numeric< T > > > matrix;
     private int rows, cols;
 
     /**
@@ -33,12 +34,36 @@ public class Matrix <T extends Number> {
         int size = matrix.size();
         for(int i = 0; i < size; i++) {
             this.matrix.add(new ArrayList<>());
-            ArrayList<T> new_row = this.matrix.get(i);
-            new_row.addAll(matrix.get(i));
+            ArrayList<Numeric<T>> new_row = this.matrix.get(i);
+            for(T val : matrix.get(i))
+                addVal(new_row, val);
         }
 
         rows = this.matrix.size();
         cols = this.matrix.get(0).size();
+    }
+
+//    TODO: Abstract Fabric ?????
+    @SuppressWarnings("unchecked")
+    private void addVal(ArrayList<Numeric<T>> new_row, T val) {
+        switch (val.getClass().getSimpleName().toLowerCase()) {
+            case "long":
+                new_row.add((Numeric<T>) new RichLong((Long) val));
+                break;
+            case "integer":
+            case "int":
+                new_row.add((Numeric<T>) new RichInt((Integer) val));
+                break;
+            case "short":
+                new_row.add((Numeric<T>) new RichShort((Short) val));
+                break;
+            case "float":
+                new_row.add((Numeric<T>) new RichFloat((Float) val));
+                break;
+            case "double":
+                new_row.add((Numeric<T>) new RichDouble((Double) val));
+                break;
+        }
     }
 
     /**
@@ -53,11 +78,14 @@ public class Matrix <T extends Number> {
         this.matrix = new ArrayList<>(matrix.length);
 
         int length = matrix[0].length;
-        for (T[] aMatrix : matrix) {
-            if (aMatrix.length != length)
+        for (int i = 0; i < length; i++) {
+            if (matrix[i].length != length)
                 throw new MatrixIllegalArgumentException(MatrixIllegalArgumentException.DIFFERENT_ROWS_LENGTH_MESSAGE);
 
-            this.matrix.add(new ArrayList<>(Arrays.asList(aMatrix)));
+            this.matrix.add(new ArrayList<>());
+            ArrayList<Numeric<T>> new_row = this.matrix.get(i);
+            for(T val : matrix[i])
+                addVal(new_row, val);
         }
 
         rows = matrix.length;
@@ -79,9 +107,9 @@ public class Matrix <T extends Number> {
         for(int i = 0; i < dimensions; i++) {
             matrix.add(new ArrayList<>(dimensions));
 
-            ArrayList<T> row = matrix.get(i);
+            ArrayList<Numeric<T>> row = matrix.get(i);
             for(int j = 0; j < dimensions; j++)
-                row.add((T) Integer.valueOf(0));
+                row.add(null);
         }
     }
 
@@ -104,9 +132,9 @@ public class Matrix <T extends Number> {
         for(int i = 0; i < rows; i++) {
             matrix.add(new ArrayList<>(cols));
 
-            ArrayList<T> row = matrix.get(i);
+            ArrayList<Numeric<T>> row = matrix.get(i);
             for(int j = 0; j < cols; j++)
-                row.add((T) Integer.valueOf(0));
+                row.add(null);
         }
     }
 
@@ -123,6 +151,17 @@ public class Matrix <T extends Number> {
         if(i < 0 || j < 0)
             throw new BadIndexException(BadIndexException.NEGATIVE_INDEX_MESSAGE);
 
+        Numeric<T> ret = matrix.get(i).get(j);
+
+        return ret == null ? (T) Integer.valueOf(0) : ret.getVal();
+    }
+
+    public Numeric<T> getNumeric(int i, int j) {
+        if(i >= rows || j >= cols)
+            throw new BadIndexException(BadIndexException.INDEX_OUT_OF_BOUNDS_MESSAGE);
+        if(i < 0 || j < 0)
+            throw new BadIndexException(BadIndexException.NEGATIVE_INDEX_MESSAGE);
+
         return matrix.get(i).get(j);
     }
 
@@ -133,13 +172,31 @@ public class Matrix <T extends Number> {
      * @param val value to set
      * @throws BadIndexException if {@code i >= this.rows || i < 0 || j >= this.cols || j < 0}
      */
+    @SuppressWarnings("unchecked")
     public void set(int i, int j, T val) {
         if(i >= rows || j >= cols)
             throw new BadIndexException(BadIndexException.INDEX_OUT_OF_BOUNDS_MESSAGE);
         if(i < 0 || j < 0)
             throw new BadIndexException(BadIndexException.NEGATIVE_INDEX_MESSAGE);
 
-        matrix.get(i).set(j, val);
+        switch(val.getClass().getSimpleName().toLowerCase()) {
+            case "long":
+                matrix.get(i).set(j, (Numeric<T>) new RichLong((Long) val));
+                break;
+            case "integer":
+            case "int":
+                matrix.get(i).set(j, (Numeric<T>) new RichInt((Integer) val));
+                break;
+            case "short":
+                matrix.get(i).set(j, (Numeric<T>) new RichShort((Short) val));
+                break;
+            case "float":
+                matrix.get(i).set(j, (Numeric<T>) new RichFloat((Float) val));
+                break;
+            case "double":
+                matrix.get(i).set(j, (Numeric<T>) new RichDouble((Double) val));
+                break;
+        }
     }
 
     /**
