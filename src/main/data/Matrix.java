@@ -16,6 +16,8 @@ public class Matrix <T extends Number> {
     private ArrayList< ArrayList< Numeric< T > > > matrix;
     private int rows, cols;
 
+//    TODO: Is not really working right now, add static factory methods with implicitly stated type of matrix elements
+
     /**
      * Constructs matrix from {@link ArrayList} of {@link ArrayList<T>}
      * @param matrix {@link ArrayList} from which to construct matrix
@@ -153,7 +155,7 @@ public class Matrix <T extends Number> {
 
         Numeric<T> ret = matrix.get(i).get(j);
 
-        return ret == null ? (T) Integer.valueOf(0) : ret.getVal();
+        return ret == null ? (T) Double.valueOf(0) : ret.getVal();
     }
 
     public Numeric<T> getNumeric(int i, int j) {

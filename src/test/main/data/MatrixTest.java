@@ -14,11 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Alexander Fal (falalexandr007@gmail.com)
  */
 class MatrixTest {
-    private static Matrix<Integer> matrix;
+    private static Matrix<Integer> integerMatrix;
+    private static Matrix<Double> doubleMatrix;
     private static final int dimensions = 2;
     @BeforeAll
     static void beforeAll() {
-        matrix = new Matrix<>(dimensions);
+        integerMatrix = new Matrix<>(dimensions);
+        doubleMatrix = new Matrix<>(dimensions);
     }
 
     /**
@@ -30,7 +32,7 @@ class MatrixTest {
     class ConstructorsTests {
 
         /**
-         * Create matrix from {@link ArrayList}
+         * Create integerMatrix from {@link ArrayList}
          * 1. Create {@link ArrayList}
          * 2. Create {@link Matrix} from {@link ArrayList}
          *  a. check if each element in {@link Matrix} equals to corresponding element in {@link ArrayList}
@@ -57,7 +59,7 @@ class MatrixTest {
         }
 
         /**
-         * Create matrix from {@link ArrayList}
+         * Create integerMatrix from {@link ArrayList}
          * 1. Create {@link ArrayList} reference and assign null
          * 2. Create {@link Matrix} from {@link ArrayList}
          *  a. check if exception with correct message was thrown
@@ -72,7 +74,7 @@ class MatrixTest {
         }
 
         /**
-         * Create matrix from two-dimensional array
+         * Create integerMatrix from two-dimensional array
          * 1. Create {@link ArrayList}
          * 2. Create {@link Matrix} from {@link ArrayList}
          *  a. check if each element in {@link Matrix} equals to corresponding element in {@link ArrayList}
@@ -93,7 +95,7 @@ class MatrixTest {
         }
 
         /**
-         * Create matrix from null-reference to two-dimensional array
+         * Create integerMatrix from null-reference to two-dimensional array
          * 1. Create array reference and assign null
          * 2. Create {@link Matrix} from array
          *  a. check if exception with correct message was thrown
@@ -108,8 +110,8 @@ class MatrixTest {
         }
 
         /**
-         * Create square matrix filled with zeros
-         * 1. Create matrix with valid dimensions argument
+         * Create square integerMatrix filled with zeros
+         * 1. Create integerMatrix with valid dimensions argument
          * @throws MatrixIllegalArgumentException if {@code dimensions < 2}
          */
         @Test
@@ -118,8 +120,8 @@ class MatrixTest {
         }
 
         /**
-         * Create square matrix with wrong dimensions
-         * 1. Create matrix with {@code dimensions < 2}
+         * Create square integerMatrix with wrong dimensions
+         * 1. Create integerMatrix with {@code dimensions < 2}
          *  a. check that exception with correct error message was thrown
          * @throws MatrixIllegalArgumentException if {@code dimensions < 2}
          */
@@ -130,8 +132,8 @@ class MatrixTest {
         }
 
         /**
-         * Create matrix filled with zeros
-         * 1. Create matrix with valid rows and cols arguments
+         * Create integerMatrix filled with zeros
+         * 1. Create integerMatrix with valid rows and cols arguments
          * @throws MatrixIllegalArgumentException if {@code rows < 2 || cols < 2}
          */
         @Test
@@ -140,8 +142,8 @@ class MatrixTest {
         }
 
         /**
-         * Create matrix with wrong cols argument
-         * 1. Create matrix with {@code cols < 2}
+         * Create integerMatrix with wrong cols argument
+         * 1. Create integerMatrix with {@code cols < 2}
          *  a. check that exception with correct error message was thrown
          * @throws MatrixIllegalArgumentException if {@code cols < 2 || rows < 2}
          */
@@ -152,8 +154,8 @@ class MatrixTest {
         }
 
         /**
-         * Create matrix with wrong rows argument
-         * 1. Create matrix with {@code rows < 2}
+         * Create integerMatrix with wrong rows argument
+         * 1. Create integerMatrix with {@code rows < 2}
          *  a. check that exception with correct error message was thrown
          * @throws MatrixIllegalArgumentException if {@code cols < 2 || rows < 2}
          */
@@ -179,7 +181,7 @@ class MatrixTest {
          */
         @Test
         void testSetValidIndex() {
-            matrix.set(0, 0, 21);
+            integerMatrix.set(0, 0, 21);
         }
 
         /**
@@ -191,7 +193,7 @@ class MatrixTest {
          */
         @Test
         void testSetNegativeRowIndex() {
-            BadIndexException exception = assertThrows(BadIndexException.class, () -> matrix.set(-1, 0, 21));
+            BadIndexException exception = assertThrows(BadIndexException.class, () -> integerMatrix.set(-1, 0, 21));
             assertEquals(exception.getMessage(), BadIndexException.NEGATIVE_INDEX_MESSAGE);
         }
 
@@ -204,7 +206,7 @@ class MatrixTest {
          */
         @Test
         void testSetNegativeColumnIndex() {
-            BadIndexException exception = assertThrows(BadIndexException.class, () -> matrix.set(0, -1, 21));
+            BadIndexException exception = assertThrows(BadIndexException.class, () -> integerMatrix.set(0, -1, 21));
             assertEquals(exception.getMessage(), BadIndexException.NEGATIVE_INDEX_MESSAGE);
         }
 
@@ -217,7 +219,7 @@ class MatrixTest {
          */
         @Test
         void testSetOutOfBoundsRowIndex() {
-            BadIndexException exception = assertThrows(BadIndexException.class, () -> matrix.set(21, 0, 21));
+            BadIndexException exception = assertThrows(BadIndexException.class, () -> integerMatrix.set(21, 0, 21));
             assertEquals(exception.getMessage(), BadIndexException.INDEX_OUT_OF_BOUNDS_MESSAGE);
         }
 
@@ -230,7 +232,7 @@ class MatrixTest {
          */
         @Test
         void testSetOutOfBoundsColumnIndex() {
-            BadIndexException exception = assertThrows(BadIndexException.class, () -> matrix.set(0, 21, 21));
+            BadIndexException exception = assertThrows(BadIndexException.class, () -> integerMatrix.set(0, 21, 21));
             assertEquals(exception.getMessage(), BadIndexException.INDEX_OUT_OF_BOUNDS_MESSAGE);
         }
 
@@ -240,12 +242,12 @@ class MatrixTest {
          */
         @Test
         void testAddAll() {
-            Matrix tmp = matrix.addAll(1, 2, 3, 4);
-            assertEquals(tmp, matrix);
+            Matrix tmp = integerMatrix.addAll(1, 2, 3, 4);
+            assertEquals(tmp, integerMatrix);
 
             for(int i = 0; i < dimensions; i++) {
                 for(int j = 0; j < dimensions; j++)
-                    assertEquals((int) matrix.get(i,j), i * dimensions + j + 1);
+                    assertEquals((int) integerMatrix.get(i,j), i * dimensions + j + 1);
             }
         }
 
@@ -255,12 +257,12 @@ class MatrixTest {
          */
         @Test
         void testAddAllLessThenDimensions() {
-            Matrix tmp = matrix.addAll(1, 2, 3);
-            assertEquals(tmp, matrix);
+            Matrix tmp = integerMatrix.addAll(1, 2, 3);
+            assertEquals(tmp, integerMatrix);
 
             for(int i = 0; i < 1; i++) {
                 for(int j = 0; j < dimensions; j++)
-                    assertEquals((int) matrix.get(i,j), i * dimensions + j + 1);
+                    assertEquals((int) integerMatrix.get(i,j), i * dimensions + j + 1);
             }
         }
 
@@ -270,12 +272,12 @@ class MatrixTest {
          */
         @Test
         void testAddAllMoreThenDimensions() {
-            Matrix tmp = matrix.addAll(1, 2, 3, 4, 5);
-            assertEquals(tmp, matrix);
+            Matrix tmp = integerMatrix.addAll(1, 2, 3, 4, 5);
+            assertEquals(tmp, integerMatrix);
 
             for(int i = 0; i < dimensions; i++) {
                 for(int j = 0; j < dimensions; j++)
-                    assertEquals((int) matrix.get(i,j), i * dimensions + j + 1);
+                    assertEquals((int) integerMatrix.get(i,j), i * dimensions + j + 1);
             }
         }
     }
@@ -295,7 +297,14 @@ class MatrixTest {
          */
         @Test
         void testGetValidIndex() {
-            matrix.get(0,0);
+            int val = integerMatrix.get(0,0);
+            assertEquals(0, val);
+        }
+
+        @Test
+        void testGetValidIndexDouble() {
+            double val = doubleMatrix.get(0,0);
+            assertEquals(0., val);
         }
 
         /**
@@ -307,7 +316,7 @@ class MatrixTest {
          */
         @Test
         void testGetNegativeIndex() {
-            BadIndexException exception = assertThrows(BadIndexException.class, () -> matrix.get(-1, 0));
+            BadIndexException exception = assertThrows(BadIndexException.class, () -> integerMatrix.get(-1, 0));
             assertEquals(exception.getMessage(), BadIndexException.NEGATIVE_INDEX_MESSAGE);
         }
 
@@ -320,7 +329,7 @@ class MatrixTest {
          */
         @Test
         void testGetOutOfBoundsIndex() {
-            BadIndexException exception = assertThrows(BadIndexException.class, () -> matrix.get(21, 0));
+            BadIndexException exception = assertThrows(BadIndexException.class, () -> integerMatrix.get(21, 0));
             assertEquals(exception.getMessage(), BadIndexException.INDEX_OUT_OF_BOUNDS_MESSAGE);
         }
 
@@ -333,7 +342,7 @@ class MatrixTest {
          */
         @Test
         void testGetRows() {
-            assertEquals(matrix.getRows(), dimensions);
+            assertEquals(integerMatrix.getRows(), dimensions);
         }
 
         /**
@@ -345,7 +354,7 @@ class MatrixTest {
          */
         @Test
         void testGetCols() {
-            assertEquals(matrix.getCols(), dimensions);
+            assertEquals(integerMatrix.getCols(), dimensions);
         }
     }
 }

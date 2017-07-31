@@ -39,9 +39,9 @@ public class MatrixUtils {
     private static <T extends Number> T eval(Matrix<T> left, Matrix<T> right, int i, int j) {
         Numeric<T> sum;
         int k;
-        for(sum = left.getNumeric(i,0).mult(right.get(0,j)), k = 1; k < left.getCols(); k++) {
+        for(sum = left.getNumeric(i,0).mult(right.get(0,j)), k = 1; k < left.getCols(); k++)
             sum = sum.add(left.getNumeric(i,k).mult(right.get(k,j)).getVal());
-        }
+
         return sum.getVal();
     }
 
