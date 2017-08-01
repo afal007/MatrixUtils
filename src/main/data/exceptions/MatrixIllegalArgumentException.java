@@ -8,7 +8,9 @@ public class MatrixIllegalArgumentException extends IllegalArgumentException {
     public static final String DIFFERENT_ROWS_LENGTH_MESSAGE = "Rows can't have different length";
     public static final String WRONG_MULT_DIMENSIONS_MESSAGE = "Left-hand columns must be equal to right hand columns";
     public static final String WRONG_TYPE_MESSAGE = "Type should be numeric";
-    public static final String INCOPATIBLE_TYPE_EXCEPTION = "Incopatible array type";
+    public static final String INCOPATIBLE_ARRAY_TYPE_EXCEPTION = "Incopatible array type";
+    public static final String INCOPATIBLE_MATRIX_TYPE_EXCEPTION = "Incopatible matrix types";
+    public static final String WRONG_ADD_DIMENSIONS_MESSAGE = "Number of columns and rows in both matrices must be equal";
 
 
     public MatrixIllegalArgumentException() {
