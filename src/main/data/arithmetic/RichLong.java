@@ -21,6 +21,11 @@ public class RichLong implements Numeric<Long>{
     }
 
     @Override
+    public Numeric<Long> sub(Long right) {
+        return RichLong.of(val + right);
+    }
+
+    @Override
     public Numeric<Long> mult(Long right) {
         return RichLong.of(val * right);
     }

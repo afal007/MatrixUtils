@@ -21,6 +21,10 @@ public class RichShort implements Numeric<Short> {
     }
 
     @Override
+    public Numeric<Short> sub(Short right) { return RichShort.of((short) (val + right));
+    }
+
+    @Override
     public Numeric<Short> mult(Short right) {
         return RichShort.of((short) (val * right));
     }

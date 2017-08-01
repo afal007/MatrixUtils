@@ -21,6 +21,11 @@ public class RichInt implements Numeric<Integer> {
     }
 
     @Override
+    public Numeric<Integer> sub(Integer right) {
+        return RichInt.of(val + right);
+    }
+
+    @Override
     public Numeric<Integer> mult(Integer right) {
         return RichInt.of(val * right);
     }

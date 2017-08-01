@@ -21,6 +21,11 @@ public class RichFloat implements Numeric<Float> {
     }
 
     @Override
+    public Numeric<Float> sub(Float right) {
+        return RichFloat.of(val - right);
+    }
+
+    @Override
     public Numeric<Float> mult(Float right) {
         return RichFloat.of(val * right);
     }

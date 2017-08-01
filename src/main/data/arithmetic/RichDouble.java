@@ -21,6 +21,11 @@ public class RichDouble implements Numeric<Double> {
     }
 
     @Override
+    public Numeric<Double> sub(Double right) {
+        return RichDouble.of(val - right);
+    }
+
+    @Override
     public Numeric<Double> mult(Double right) {
         return RichDouble.of(val * right);
     }

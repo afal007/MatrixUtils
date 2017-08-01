@@ -6,6 +6,7 @@ package main.data.arithmetic;
  */
 public interface Numeric <T extends Number> {
     Numeric<T> add (T right);
+    Numeric<T> sub (T right);
     Numeric<T> mult (T right);
     Numeric<T> div (T right);
     T getVal();
