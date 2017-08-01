@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MatrixUtilsTest {
-    private static final Matrix<Double> left = new Matrix<>(new Double[][] {{1., 1.},{1., 1.}});
-    private static final Matrix<Double> right = new Matrix<>(new Double[][] {{2., 2.},{2., 2.}});
+    private static final Matrix<Double> left = Matrix.of(Double.class).initFrom(new Double[][] {{1., 1.},{1., 1.}});
+    private static final Matrix<Double> right = Matrix.of(Double.class).initFrom(new Double[][] {{2., 2.},{2., 2.}});
 
     @Test
     void testMult() {

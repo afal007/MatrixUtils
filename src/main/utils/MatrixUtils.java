@@ -26,9 +26,9 @@ public class MatrixUtils {
         if(left.getCols() != right.getRows())
             throw new MatrixIllegalArgumentException(MatrixIllegalArgumentException.WRONG_MULT_DIMENSIONS_MESSAGE);
 
-//        TODO: Implement Numeric interface and primitive types wrapers to be able to generify arithmetic ops
+//        COMPLETED: Implement Numeric interface and primitive types wrapers to be able to generify arithmetic ops
         int rows = left.getRows(), cols = right.getCols();
-        Matrix <T> result = new Matrix<>(rows, cols);
+        Matrix <T> result = Matrix.of(Integer.class).initZero(rows, cols);
         for(int i = 0; i < rows; i++)
             for(int j = 0; j < cols; j++)
                 result.set(i, j,  eval(left, right, i, j));
@@ -46,18 +46,18 @@ public class MatrixUtils {
     }
 
     public <T extends Number> Matrix add (Matrix<T> left, Matrix<T> right) {
-        return new Matrix<>(new Integer[][]{{1, 2}, {3, 4}});
+        return Matrix.of(Integer.class).initFrom(new Integer[][]{{1, 2}, {3, 4}});
     }
 
     public <T extends Number> Matrix sub (Matrix<T> left, Matrix<T> right) {
-        return new Matrix<>(new Integer[][]{{1, 2}, {3, 4}});
+        return Matrix.of(Integer.class).initFrom(new Integer[][]{{1, 2}, {3, 4}});
     }
 
     public <T extends Number> Matrix transpose (Matrix<T> matrix) {
-        return new Matrix<>(new Integer[][]{{1, 2}, {3, 4}});
+        return Matrix.of(Integer.class).initFrom(new Integer[][]{{1, 2}, {3, 4}});
     }
 
     public <T extends Number> Matrix mult(Matrix<T> matrix, int scalar) {
-        return new Matrix<>(new Integer[][]{{1, 2}, {3, 4}});
+        return Matrix.of(Integer.class).initFrom(new Integer[][]{{1, 2}, {3, 4}});
     }
 }
