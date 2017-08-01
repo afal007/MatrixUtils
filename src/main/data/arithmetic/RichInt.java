@@ -22,7 +22,7 @@ public class RichInt implements Numeric<Integer> {
 
     @Override
     public Numeric<Integer> sub(Integer right) {
-        return RichInt.of(val + right);
+        return RichInt.of(val - right);
     }
 
     @Override
