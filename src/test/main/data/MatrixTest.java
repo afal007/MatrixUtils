@@ -19,8 +19,8 @@ class MatrixTest {
     private static final int dimensions = 2;
     @BeforeAll
     static void beforeAll() {
-        integerMatrix = new Matrix<>(dimensions);
-        doubleMatrix = new Matrix<>(dimensions);
+        integerMatrix = Matrix.of(Integer.class).initZero(dimensions);
+        doubleMatrix = Matrix.of(Double.class).initZero(dimensions);
     }
 
     /**
@@ -50,7 +50,7 @@ class MatrixTest {
                     row.add(j);
             }
 
-            Matrix<Integer> matrix = new Matrix<>(arr);
+            Matrix matrix = Matrix.of(Integer.class).initFrom(arr);
             for(int i = 0; i < rows; i++) {
                 ArrayList<Integer> row = arr.get(i);
                 for (int j = 0; j < cols; j++)
@@ -69,7 +69,8 @@ class MatrixTest {
         void testCreateMatrixFromArrayListNull() {
             ArrayList<ArrayList<Integer>> arr = null;
 
-            MatrixIllegalArgumentException exception = assertThrows(MatrixIllegalArgumentException.class, () -> new Matrix<>(arr));
+            MatrixIllegalArgumentException exception = assertThrows(MatrixIllegalArgumentException.class,
+                    () -> Matrix.of(Integer.class).initFrom(arr));
             assertEquals(exception.getMessage(), MatrixIllegalArgumentException.ARGUMENT_CANT_BE_NULL_MESSAGE);
         }
 
@@ -88,7 +89,7 @@ class MatrixTest {
                 for(int j = 0; j < cols; j++)
                     arr[i][j] = i;
 
-            Matrix<Integer> matrix = new Matrix<> (arr);
+            Matrix<Integer> matrix = Matrix.of(Integer.class).initFrom(arr);
             for(int i = 0; i < rows; i++)
                 for(int j = 0; j < cols; j++)
                     assertEquals(matrix.get(i,j), arr[i][j]);
@@ -105,7 +106,8 @@ class MatrixTest {
         void testCreateMatrixFromArrayNull() {
             Integer[][] arr = null;
 
-            MatrixIllegalArgumentException exception = assertThrows(MatrixIllegalArgumentException.class, () -> new Matrix<>(arr));
+            MatrixIllegalArgumentException exception = assertThrows(MatrixIllegalArgumentException.class,
+                    () -> Matrix.of(Integer.class).initFrom(arr));
             assertEquals(exception.getMessage(), MatrixIllegalArgumentException.ARGUMENT_CANT_BE_NULL_MESSAGE);
         }
 
@@ -116,7 +118,7 @@ class MatrixTest {
          */
         @Test
         void testCreateZeroSquareMatrix() {
-            new Matrix<Integer>(2);
+            Matrix.of(Integer.class).initZero(dimensions);
         }
 
         /**
@@ -127,7 +129,8 @@ class MatrixTest {
          */
         @Test
         void testCreateZeroSquareMatrixBadDimensions() {
-            Exception exception = assertThrows(MatrixIllegalArgumentException.class, () -> new Matrix<Integer>(1));
+            Exception exception = assertThrows(MatrixIllegalArgumentException.class,
+                    () -> Matrix.of(Integer.class).initZero(1));
             assertEquals(exception.getMessage(), MatrixIllegalArgumentException.WRONG_DIMENSIONS_NUMBER_MESSAGE);
         }
 
@@ -138,7 +141,7 @@ class MatrixTest {
          */
         @Test
         void testCreateZeroMatrix() {
-            new Matrix<Integer>(2,2);
+            Matrix.of(Integer.class).initZero(2,2);
         }
 
         /**
@@ -149,7 +152,8 @@ class MatrixTest {
          */
         @Test
         void testCreateZeroMatrixWrongColumns() {
-            Exception exception = assertThrows(MatrixIllegalArgumentException.class, () -> new Matrix<Integer>(2, 1));
+            Exception exception = assertThrows(MatrixIllegalArgumentException.class,
+                    () -> Matrix.of(Integer.class).initZero(2, 1));
             assertEquals(exception.getMessage(), MatrixIllegalArgumentException.WRONG_COLUMNS_NUMBER_MESSAGE);
         }
 
@@ -161,7 +165,8 @@ class MatrixTest {
          */
         @Test
         void testCreateZeroMatrixWrongRows() {
-            Exception exception = assertThrows(MatrixIllegalArgumentException.class, () -> new Matrix<Integer>(1,2));
+            Exception exception = assertThrows(MatrixIllegalArgumentException.class,
+                    () -> Matrix.of(Integer.class).initZero(1,2));
             assertEquals(exception.getMessage(), MatrixIllegalArgumentException.WRONG_ROWS_NUMBER_MESSAGE);
         }
     }

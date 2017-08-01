@@ -7,6 +7,8 @@ public class MatrixIllegalArgumentException extends IllegalArgumentException {
     public static final String ARGUMENT_CANT_BE_NULL_MESSAGE = "Argument can't be null";
     public static final String DIFFERENT_ROWS_LENGTH_MESSAGE = "Rows can't have different length";
     public static final String WRONG_MULT_DIMENSIONS_MESSAGE = "Left-hand columns must be equal to right hand columns";
+    public static final String WRONG_TYPE_MESSAGE = "Type should be numeric";
+    public static final String INCOPATIBLE_TYPE_EXCEPTION = "Incopatible array type";
 
 
     public MatrixIllegalArgumentException() {
